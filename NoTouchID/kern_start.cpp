@@ -44,7 +44,7 @@ static UserPatcher::ProcInfo ADDPR(procInfo)[] {
 const size_t ADDPR(procInfoSize) = 1;
 
 static void noBioStart() {
-    lilu.onProcLoad(ADDPR(procInfo), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryMod), ADDPR(binaryModSize));
+	lilu.onProcLoad(ADDPR(procInfo), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryMod), ADDPR(binaryModSize));
 }
 
 static const char *bootargOff[] {
@@ -66,7 +66,7 @@ PluginConfiguration ADDPR(config) {
 	bootargBeta,
 	arrsize(bootargBeta),
 	KernelVersion::HighSierra,
-	KernelVersion::HighSierra,
+	KernelVersion::Mojave,
 	[]() {
 		noBioStart();
 	}
