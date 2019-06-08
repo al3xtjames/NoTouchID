@@ -66,7 +66,7 @@ PluginConfiguration ADDPR(config) {
 	bootargBeta,
 	arrsize(bootargBeta),
 	KernelVersion::HighSierra,
-	KernelVersion::Mojave,
+	KernelVersion::Catalina,
 	[]() {
 		noBioStart();
 	}
