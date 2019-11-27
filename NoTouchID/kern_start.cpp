@@ -10,21 +10,22 @@
 #include <Headers/kern_api.hpp>
 
 // Target framework
-static const char *binPath = "/System/Library/PrivateFrameworks/BiometricKit.framework/Versions/A/BiometricKit";
+static const char binPath[] = "/System/Library/PrivateFrameworks/BiometricKit.framework/Versions/A/BiometricKit";
 
 // Accompanied processes
-static const char *procList[] {
-	"/System/Library/Frameworks/LocalAuthentication.framework/Support/DaemonUtils.framework/Versions/A/DaemonUtils"
-};
+static const char procPath[] = "/System/Library/Frameworks/LocalAuthentication.framework/Support/DaemonUtils.framework/Versions/A/DaemonUtils";
 
 static const uint8_t find[] = "board-id";
 static const uint8_t repl[] = "board-ix";
 
+static_assert(sizeof(find) == sizeof(repl), "Invalid patch size");
+
 static UserPatcher::BinaryModPatch patch {
 	CPU_TYPE_X86_64,
+	0,
 	find,
 	repl,
-	strlen(reinterpret_cast<const char *>(find)),
+	sizeof(find) - 1,
 	0,
 	1,
 	UserPatcher::FileSegment::SegmentTextCstring,
@@ -38,14 +39,10 @@ UserPatcher::BinaryModInfo ADDPR(binaryMod)[] {
 const size_t ADDPR(binaryModSize) = 1;
 
 static UserPatcher::ProcInfo ADDPR(procInfo)[] {
-	{ procList[0], static_cast<uint32_t>(strlen(procList[0])), 1 }
+	{ procPath, sizeof(procPath) - 1, 1 }
 };
 
 const size_t ADDPR(procInfoSize) = 1;
-
-static void noBioStart() {
-	lilu.onProcLoad(ADDPR(procInfo), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryMod), ADDPR(binaryModSize));
-}
 
 static const char *bootargOff[] {
 	"-nobiooff"
@@ -68,6 +65,6 @@ PluginConfiguration ADDPR(config) {
 	KernelVersion::HighSierra,
 	KernelVersion::Catalina,
 	[]() {
-		noBioStart();
+		lilu.onProcLoad(ADDPR(procInfo), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryMod), ADDPR(binaryModSize));
 	}
 };
