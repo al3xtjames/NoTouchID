@@ -7,7 +7,7 @@ this out resolves such hangs.
 
 ### Configuration
  - Add `-nobiooff` to disable NoTouchID
- - Add `-nobiobeta` to enable NoTouchID on unsupported OS versions (10.13-10.16 are supported by
+ - Add `-nobiobeta` to enable NoTouchID on unsupported OS versions (10.13-11.0 are supported by
    default)
 
 ### Downloads
