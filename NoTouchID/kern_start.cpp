@@ -5,7 +5,6 @@
 //  Copyright (C) 2018 Alex James (TheRacerMaster). All rights reserved.
 //
 
-#include <Library/LegacyIOService.h>
 #include <Headers/plugin_start.hpp>
 #include <Headers/kern_api.hpp>
 
