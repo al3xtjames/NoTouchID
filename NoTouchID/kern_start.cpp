@@ -62,7 +62,7 @@ PluginConfiguration ADDPR(config) {
 	bootargBeta,
 	arrsize(bootargBeta),
 	KernelVersion::HighSierra,
-	KernelVersion::BigSur,
+	KernelVersion::Catalina,
 	[]() {
 		lilu.onProcLoad(ADDPR(procInfo), ADDPR(procInfoSize), nullptr, nullptr, ADDPR(binaryMod), ADDPR(binaryModSize));
 	}
